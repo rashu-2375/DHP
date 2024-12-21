@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Editing Tool</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+    #image-preview {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Image Editing Tool</h1>
+    <input type="file" id="image-upload" accept="image/*">
+    <div id="image-preview"></div>
+    <div>
+        <button onclick="openCropPage()">Crop Image</button>
+        <button onclick="openBlurPage()">Blur Image</button>
+        <button onclick="openBlurPage()">Rotate image</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('image-upload').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var imagePreview = document.getElementById('image-preview');
+            imagePreview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image">';
+        }
+        reader.readAsDataURL(file);
+    });
+
+    function openCropPage() {
+        var uploadedImage = document.getElementById('image-upload').files[0];
+        if (uploadedImage) {
+            var url = window.URL.createObjectURL(uploadedImage);
+            window.open('crop.html?image=' + url, '_blank');
+        } else {
+            alert('Please upload an image first.');
+        }
+    }
+
+    function openBlurPage() {
+        var uploadedImage = document.getElementById('image-upload').files[0];
+        if (uploadedImage) {
+            var url = window.URL.createObjectURL(uploadedImage);
+            window.open('blur.html?image=' + url, '_blank');
+        } else {
+            alert('Please upload an image first.');
+        }
+    }
+</script>
+
+</body>
+</html>

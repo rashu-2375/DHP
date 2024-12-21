@@ -1,0 +1,73 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Cropping Tool</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+    #image-container {
+        margin-bottom: 20px;
+    }
+    #cropped-image {
+        max-width: 100%;
+        height: auto;
+    }
+    input[type="range"] {
+        width: 80%;
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Image Cropping Tool</h1>
+    <div id="image-container">
+        <img src="https://via.placeholder.com/300" alt="Original Image" id="original-image">
+    </div>
+    <label for="x-range">X Range:</label>
+    <input type="range" id="x-range" min="0" max="100" value="0">
+    <label for="y-range">Y Range:</label>
+    <input type="range" id="y-range" min="0" max="100" value="0">
+    <label for="width-range">Width:</label>
+    <input type="range" id="width-range" min="0" max="100" value="100">
+    <label for="height-range">Height:</label>
+    <input type="range" id="height-range" min="0" max="100" value="100">
+    <button onclick="cropImage()">Crop Image</button>
+    <div id="cropped-image-container"></div>
+</div>
+
+<script>
+    function cropImage() {
+        var originalImage = document.getElementById('original-image');
+        var x = parseInt(document.getElementById('x-range').value);
+        var y = parseInt(document.getElementById('y-range').value);
+        var width = parseInt(document.getElementById('width-range').value);
+        var height = parseInt(document.getElementById('height-range').value);
+        
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(originalImage, x, y, width, height, 0, 0, width, height);
+        
+        var croppedImage = new Image();
+        croppedImage.src = canvas.toDataURL();
+        
+        var croppedImageContainer = document.getElementById('cropped-image-container');
+        croppedImageContainer.innerHTML = '';
+        croppedImageContainer.appendChild(croppedImage);
+    }
+</script>
+
+</body>
+</html>

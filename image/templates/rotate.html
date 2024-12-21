@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rotated Image</title>
+    <style>
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+
+        #rotation-slider {
+            width: 300px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rotated Image</h1>
+    <div class = "container">
+        
+    </div>
+    <img id="rotated-image" src="data:image/png;base64,{{ image_data }}" alt="Rotated Image">
+
+    <div class="slider-container">
+        <input type="range" id="rotation-slider" min="0" max="180" value="90" oninput="rotateImage(this.value)">
+        <span id="rotation-value">90°</span>
+    </div>
+
+    <script>
+        function rotateImage(angle) {
+            const rotatedImage = document.getElementById('rotated-image');
+            rotatedImage.style.transform = `rotate(${angle}deg)`;
+            document.getElementById('rotation-value').textContent = `${angle}°`;
+        }
+    </script>
+</body>
+</html>

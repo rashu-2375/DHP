@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Blur Tool</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+    #image-container {
+        margin-bottom: 20px;
+    }
+    #blurred-image {
+        max-width: 100%;
+        height: auto;
+    }
+    input[type="range"] {
+        width: 80%;
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Image Blur Tool</h1>
+    <div id="image-container">
+        <img src="https://via.placeholder.com/300" alt="Original Image" id="original-image">
+    </div>
+    <label for="blur-range">Blur Amount:</label>
+    <input type="range" id="blur-range" min="0" max="10" step="0.1" value="0">
+    <button onclick="applyBlur()">Apply Blur</button>
+    <div id="blurred-image-container"></div>
+</div>
+
+<script>
+    function applyBlur() {
+        var originalImage = document.getElementById('original-image');
+        var blurAmount = parseFloat(document.getElementById('blur-range').value);
+        
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = originalImage.width;
+        canvas.height = originalImage.height;
+        ctx.filter = `blur(${blurAmount}px)`;
+        ctx.drawImage(originalImage, 0, 0);
+        
+        var blurredImage = new Image();
+        blurredImage.src = canvas.toDataURL();
+        
+        var blurredImageContainer = document.getElementById('blurred-image-container');
+        blurredImageContainer.innerHTML = '';
+        blurredImageContainer.appendChild(blurredImage);
+    }
+</script>
+
+</body>
+</html>
